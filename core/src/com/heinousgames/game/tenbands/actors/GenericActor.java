@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * Created by Steve on 2/22/2016.
+ * Created by Steve on 2/22/2016
  */
 public class GenericActor extends Actor {
 

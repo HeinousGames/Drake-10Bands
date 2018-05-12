@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.heinousgames.game.tenbands.actors.ButtonActor;
 
 /**
- * Created by Steve on 4/23/2016.
+ * Created by Steve on 4/23/2016
  */
 public class OptionsScreen extends GenericMenuScreen {
 
@@ -157,6 +157,6 @@ public class OptionsScreen extends GenericMenuScreen {
 
     @Override
     public void dispose() {
-        super.dispose();
+
     }
 }

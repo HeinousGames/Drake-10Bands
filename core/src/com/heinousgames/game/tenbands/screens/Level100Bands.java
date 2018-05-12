@@ -5,7 +5,7 @@ import com.heinousgames.game.tenbands.actors.SleepingActor;
 import com.heinousgames.game.tenbands.actors.VerticalPhoneActor;
 
 /**
- * Created by Steve on 4/13/2016.
+ * Created by Steve on 4/13/2016
  */
 public class Level100Bands extends Level {
 

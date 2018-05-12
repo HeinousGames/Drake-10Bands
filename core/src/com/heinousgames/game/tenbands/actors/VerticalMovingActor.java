@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- * Created by Steve on 2/21/2016.
+ * Created by Steve on 2/21/2016
  */
 public class VerticalMovingActor extends GenericActor {
 

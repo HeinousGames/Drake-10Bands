@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * Created by Steve on 4/24/2016.
+ * Created by Steve on 4/24/2016
  */
 public class ArrowActor extends Actor {
 

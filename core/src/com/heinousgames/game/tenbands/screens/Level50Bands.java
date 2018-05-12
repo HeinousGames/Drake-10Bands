@@ -4,7 +4,7 @@ import com.heinousgames.game.tenbands.actors.GenericActor;
 import com.heinousgames.game.tenbands.actors.HorizontalPhoneActor;
 
 /**
- * Created by Steve on 4/13/2016.
+ * Created by Steve on 4/13/2016
  */
 public class Level50Bands extends Level {
 
@@ -58,6 +58,6 @@ public class Level50Bands extends Level {
 
     @Override
     public void dispose() {
-        super.dispose();
+
     }
 }

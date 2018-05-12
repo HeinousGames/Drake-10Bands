@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.heinousgames.game.tenbands.actors.ButtonActor;
 
 /**
- * Created by Steve on 4/25/2016.
+ * Created by Steve on 4/25/2016
  */
 public class InstructionsScreen extends GenericMenuScreen {
     private float quitWidth, quitHeight;

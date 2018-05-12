@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- * Created by Steve on 4/14/2016.
+ * Created by Steve on 4/14/2016
  */
 public class SleepingActor extends GenericActor {
 

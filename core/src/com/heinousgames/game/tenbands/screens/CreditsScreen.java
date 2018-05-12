@@ -9,7 +9,7 @@ import com.heinousgames.game.tenbands.actors.ArrowActor;
 import com.heinousgames.game.tenbands.actors.ButtonActor;
 
 /**
- * Created by Steve on 4/23/2016.
+ * Created by Steve on 4/23/2016
  */
 public class CreditsScreen extends GenericMenuScreen {
 

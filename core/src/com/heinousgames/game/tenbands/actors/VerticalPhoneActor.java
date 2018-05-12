@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- * Created by Steve on 4/16/2016.
+ * Created by Steve on 4/16/2016
  */
 public class VerticalPhoneActor extends VerticalMovingActor {
 
