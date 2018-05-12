@@ -14,11 +14,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.heinousgames.game.tenbands.actors.GenericActor;
 import com.heinousgames.game.tenbands.actors.SleepingActor;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 /**
  * Created by Steve on 4/16/2016
  */
@@ -29,10 +24,10 @@ public class Level implements Screen {
     public Array<SleepingActor> sleepingActors;
     public Stage stage;
 
-    private Stage uiStage;
     private Game game;
     private Texture tile;
-    private OrthographicCamera levelCamera, uiCamera;
+    private TextureRegion currentFrame;
+    private OrthographicCamera levelCamera;
     private boolean lastFacingLeft, hasLost;
     private float prevX, stateTime, soundByteTime;
     private Long startTime, finishTime;
@@ -48,15 +43,8 @@ public class Level implements Screen {
         levelCamera.position.x = 10.5f;
         levelCamera.position.y = 7.5f;
 
-        uiCamera = new OrthographicCamera(1334, 750);
-        uiCamera.position.x = 667;
-        uiCamera.position.y = 375;
-
         stage = new Stage(new ScreenViewport());
         stage.getViewport().setCamera(levelCamera);
-
-        uiStage = new Stage(new ScreenViewport());
-        uiStage.getViewport().setCamera(uiCamera);
 
         stateTime = 0f;
 
@@ -69,15 +57,14 @@ public class Level implements Screen {
 
         if (game.prefs.getBoolean("musicOn", true)) {
             if (game.prefs.getBoolean("uneditedOn", false)) {
-//                game.song.play();
+                game.song.play();
             } else {
-//                game.songEdited.play();
+                game.songEdited.play();
             }
         }
 
         game.drakeRect.x = 0;
         game.drakeRect.y = 0;
-
     }
 
     @Override
@@ -90,9 +77,6 @@ public class Level implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         levelCamera.update();
-        uiCamera.update();
-
-        TextureRegion currentFrame;
 
         if ((int)Gdx.input.getAccelerometerX() == 0 && (int)Gdx.input.getAccelerometerY() == 0) {
             currentFrame = game.walkFrames[1];
@@ -179,7 +163,7 @@ public class Level implements Screen {
                         game.prefs.putLong("level100time", finishTime);
                     }
                 }
-//                game.songEdited.stop();
+                game.songEdited.stop();
                 game.setScreen(new LevelRecapScreen(game, "Score", maxBands, game.score, finishTime, true));
                 dispose();
             }
@@ -200,17 +184,6 @@ public class Level implements Screen {
             game.prefs.flush();
         }
 
-        DateFormat formatter = new SimpleDateFormat("mm:ss:SSS", Locale.US);
-        Date date = new Date(finishTime);
-        String timeFormatted = formatter.format(date);
-
-        game.batch.setProjectionMatrix(uiCamera.combined);
-        game.batch.begin();
-        game.fontKenney50.draw(game.batch, String.valueOf(game.score), 1214, 730);
-        game.fontKenney50.draw(game.batch, String.valueOf(timeFormatted), 20, 730);
-        game.batch.end();
-        uiStage.draw();
-
         if (!hasLost) {
             for (GenericActor ga : dangerousActors) {
                 if (game.drakeRect.overlaps(ga.rectangle)) {
@@ -229,9 +202,9 @@ public class Level implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
                 if (game.prefs.getBoolean("musicOn", true)) {
                     if (game.prefs.getBoolean("uneditedOn", false)) {
-//                        game.song.stop();
+                        game.song.stop();
                     } else {
-//                        game.songEdited.stop();
+                        game.songEdited.stop();
                     }
                 }
                 game.setScreen(new LevelSelectScreen(game, "Select Level"));
@@ -265,7 +238,6 @@ public class Level implements Screen {
     @Override
     public void dispose() {
         tile.dispose();
-        uiStage.dispose();
     }
 
     private void endGame(final boolean diedByPhone) {
@@ -283,34 +255,34 @@ public class Level implements Screen {
 
         if (game.prefs.getBoolean("musicOn", true)) {
             if (game.prefs.getBoolean("uneditedOn", false)) {
-//                game.song.stop();
+                game.song.stop();
             } else {
-//                game.songEdited.stop();
+                game.songEdited.stop();
             }
         }
 
         if (game.prefs.getBoolean("soundOn", true)) {
-//            game.gunshots.play();
+            game.gunshots.play();
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-//                    game.gunshots.stop();
+                    game.gunshots.stop();
                     if (diedByPhone) {
                         if (game.prefs.getBoolean("diedByPhone")) {
                             soundByteTime = 2.404f;
-//                            game.houseNoCalls.play();
+                            game.houseNoCalls.play();
                         } else {
                             soundByteTime = 2.44f;
-//                            game.cribPhonesOff.play();
+                            game.cribPhonesOff.play();
                         }
                         game.prefs.putBoolean("diedByPhone", !game.prefs.getBoolean("diedByPhone")).flush();
                     } else {
                         if (game.prefs.getBoolean("diedByTrippin")) {
                             soundByteTime = 1.713f;
-//                            game.letEmSleep.play();
+                            game.letEmSleep.play();
                         } else {
                             soundByteTime = 1.67f;
-//                            game.RIP.play();
+                            game.RIP.play();
                         }
                         game.prefs.putBoolean("diedByTrippin", !game.prefs.getBoolean("diedByTrippin")).flush();
                     }

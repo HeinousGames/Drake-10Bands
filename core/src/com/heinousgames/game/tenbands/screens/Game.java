@@ -22,19 +22,18 @@ import java.util.Random;
 public class Game extends com.badlogic.gdx.Game {
 
     private int quadrant;
+    private Texture sheet;
+    private Random random;
 
     int score;
     SpriteBatch batch;
-    Random random;
-//    Sound tenBands, fiftyBands, hundredBands, fuckItMan, cribPhonesOff, houseNoCalls,
-//            letEmSleep, RIP, gunshots;
-//    Music song, songEdited;
+    Sound tenBands, fiftyBands, hundredBands, fuckItMan, cribPhonesOff, houseNoCalls,
+            letEmSleep, RIP, gunshots;
+    Music song, songEdited;
     TextureRegion[] walkFrames;
     TextureRegion drakeRegion, band;
-    Texture sheet;
     Animation walkAnimation;
     Rectangle bandRect, drakeRect, drakeFeetRect;
-    FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     BitmapFont fontDrake40, fontDrake60, fontDrake80, fontKenney30, fontKenney35, fontKenney40,
             fontKenney45, fontKenney50;
     Preferences prefs;
@@ -49,20 +48,20 @@ public class Game extends com.badlogic.gdx.Game {
 
         prefs = Gdx.app.getPreferences("settings");
 
-//        tenBands = Gdx.audio.newSound(Gdx.files.internal("sfx/10bands.ogg"));
-//        fiftyBands = Gdx.audio.newSound(Gdx.files.internal("sfx/50bands.ogg"));
-//        hundredBands = Gdx.audio.newSound(Gdx.files.internal("sfx/100bands.ogg"));
-//        fuckItMan = Gdx.audio.newSound(Gdx.files.internal("sfx/fuckitman.ogg"));
-//        cribPhonesOff = Gdx.audio.newSound(Gdx.files.internal("sfx/cribphonesoff.ogg"));
-//        houseNoCalls = Gdx.audio.newSound(Gdx.files.internal("sfx/housenocall.ogg"));
-//        letEmSleep = Gdx.audio.newSound(Gdx.files.internal("sfx/letemsleep.ogg"));
-//        RIP = Gdx.audio.newSound(Gdx.files.internal("sfx/rip.ogg"));
-//        gunshots = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshots.ogg"));
-//        song = Gdx.audio.newMusic(Gdx.files.internal("sfx/song.ogg"));
-//        songEdited = Gdx.audio.newMusic(Gdx.files.internal("sfx/song edited.ogg"));
+        tenBands = Gdx.audio.newSound(Gdx.files.internal("sfx/10bands.ogg"));
+        fiftyBands = Gdx.audio.newSound(Gdx.files.internal("sfx/50bands.ogg"));
+        hundredBands = Gdx.audio.newSound(Gdx.files.internal("sfx/100bands.ogg"));
+        fuckItMan = Gdx.audio.newSound(Gdx.files.internal("sfx/fuckitman.ogg"));
+        cribPhonesOff = Gdx.audio.newSound(Gdx.files.internal("sfx/cribphonesoff.ogg"));
+        houseNoCalls = Gdx.audio.newSound(Gdx.files.internal("sfx/housenocall.ogg"));
+        letEmSleep = Gdx.audio.newSound(Gdx.files.internal("sfx/letemsleep.ogg"));
+        RIP = Gdx.audio.newSound(Gdx.files.internal("sfx/rip.ogg"));
+        gunshots = Gdx.audio.newSound(Gdx.files.internal("sfx/gunshots.ogg"));
+        song = Gdx.audio.newMusic(Gdx.files.internal("sfx/song.ogg"));
+        songEdited = Gdx.audio.newMusic(Gdx.files.internal("sfx/song edited.ogg"));
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/with_my_woes.ttf"));
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.color = Color.BLACK;
         parameter.size = 60;
         fontDrake60 = generator.generateFont(parameter);
@@ -118,17 +117,17 @@ public class Game extends com.badlogic.gdx.Game {
 
     public void dispose() {
         batch.dispose();
-//        tenBands.dispose();
-//        fiftyBands.dispose();
-//        hundredBands.dispose();
-//        fuckItMan.dispose();
-//        cribPhonesOff.dispose();
-//        houseNoCalls.dispose();
-//        letEmSleep.dispose();
-//        RIP.dispose();
-//        gunshots.dispose();
-//        song.dispose();
-//        songEdited.dispose();
+        tenBands.dispose();
+        fiftyBands.dispose();
+        hundredBands.dispose();
+        fuckItMan.dispose();
+        cribPhonesOff.dispose();
+        houseNoCalls.dispose();
+        letEmSleep.dispose();
+        RIP.dispose();
+        gunshots.dispose();
+        song.dispose();
+        songEdited.dispose();
         sheet.dispose();
         fontDrake40.dispose();
         fontDrake60.dispose();

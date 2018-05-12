@@ -42,7 +42,7 @@ public class LevelIntroScreen implements Screen {
                 @Override
                 public void run() {
                     if (bands == 10) {
-//                        game.tenBands.play();
+                        game.tenBands.play();
                         Timer.schedule(new Timer.Task() {
                             @Override
                             public void run() {
@@ -50,7 +50,7 @@ public class LevelIntroScreen implements Screen {
                             }
                         }, 0.74f);
                     } else if (bands == 50) {
-//                        game.fiftyBands.play();
+                        game.fiftyBands.play();
                         Timer.schedule(new Timer.Task() {
                             @Override
                             public void run() {
@@ -58,7 +58,7 @@ public class LevelIntroScreen implements Screen {
                             }
                         }, 1);
                     } else if (bands == 100) {
-//                        game.hundredBands.play();
+                        game.hundredBands.play();
                         Timer.schedule(new Timer.Task() {
                             @Override
                             public void run() {
@@ -66,7 +66,7 @@ public class LevelIntroScreen implements Screen {
                             }
                         }, 0.67f);
                     } else if (bands == Integer.MAX_VALUE) {
-//                        game.fuckItMan.play();
+                        game.fuckItMan.play();
                         Timer.schedule(new Timer.Task() {
                             @Override
                             public void run() {
