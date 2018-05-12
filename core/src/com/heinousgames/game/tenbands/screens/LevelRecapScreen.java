@@ -147,6 +147,6 @@ public class LevelRecapScreen extends GenericMenuScreen {
 
 	@Override
 	public void dispose() {
-		super.dispose();
+
 	}
 }

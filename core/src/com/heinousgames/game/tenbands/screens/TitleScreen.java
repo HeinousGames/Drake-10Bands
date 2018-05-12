@@ -157,6 +157,5 @@ public class TitleScreen extends GenericMenuScreen {
 
     @Override
     public void dispose() {
-        super.dispose();
     }
 }
