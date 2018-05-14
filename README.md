@@ -11,7 +11,6 @@ This is an open source video game I made based on the Drake song "10 Bands." I m
 * LibGDX was only compatible with Android Studio 2.2 at the time I made this game. You will be able to get it to run on newer versions of Android Studio by modifying the target and compile sdk version to 22, but it might have undesired effects.
 
 ### Installation Instructions (Android)
-**NOTE**
 
 * This game is only available for mobile devices as it requires the gyroscope.
 * When I learn how to run the game on iOS devices I will post the instructions separately.
