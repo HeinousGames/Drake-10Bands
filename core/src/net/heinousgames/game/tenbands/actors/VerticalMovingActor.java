@@ -1,4 +1,4 @@
-package com.heinousgames.game.tenbands.actors;
+package net.heinousgames.game.tenbands.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -7,11 +7,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * Created by Steve on 2/21/2016
  */
-public class VerticalMovingActor extends GenericActor {
+class VerticalMovingActor extends GenericActor {
 
     private final float MOVING_SPEED = 0.075f;
     private float endY;
-    public boolean movingDown;
+    private boolean movingDown;
     private boolean goingDownAtStart;
 
     public VerticalMovingActor(TextureRegion[] textureRegions, float startX, float startY,
@@ -43,7 +43,7 @@ public class VerticalMovingActor extends GenericActor {
         }
     }
 
-    public VerticalMovingActor(float startX, float startY, float endY, float speed, boolean isLooping) {
+    VerticalMovingActor(float startX, float startY, float endY, float speed, boolean isLooping) {
         super(startX, startY, speed, isLooping);
         this.endY = endY;
         if (startY > endY) {

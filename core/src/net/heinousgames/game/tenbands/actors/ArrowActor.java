@@ -1,6 +1,5 @@
-package com.heinousgames.game.tenbands.actors;
+package net.heinousgames.game.tenbands.actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,13 +14,13 @@ public class ArrowActor extends Actor {
     private float x, y, width, height;
     private int direction;
 
-    public ArrowActor(float x, float y, float width, float height, int directionOClock) {
+    public ArrowActor(float x, float y, float width, float height, int directionOClock, Texture texture) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.direction = directionOClock;
-        texture = new TextureRegion(new Texture(Gdx.files.internal("gfx/arrow.png")));
+        this.texture = new TextureRegion(texture);
         setBounds(x, y, width, height);
 
 //        if (directionOClock == 12) {
@@ -42,8 +41,12 @@ public class ArrowActor extends Actor {
 
     }
 
-//    @Override
-//    public void setBounds(float x, float y, float width, float height) {
-//        super.setBounds(this.x, this.y, this.width, this.height);
-//    }
+    @Override
+    public void setBounds(float x, float y, float width, float height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        super.setBounds(x, y, width, height);
+    }
 }

@@ -1,4 +1,4 @@
-package com.heinousgames.game.tenbands.actors;
+package net.heinousgames.game.tenbands.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -13,23 +13,24 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class GenericActor extends Actor {
 
     public Rectangle rectangle;
-    public Animation animation;
-    public TextureRegion textureRegion, deadTextureRegion, currentAnimationFrame;
-    public TextureRegion[] textureRegions;
-    public float startX, startY, speed;
+    Animation<TextureRegion> animation;
+    TextureRegion textureRegion;
+    private TextureRegion deadTextureRegion, currentAnimationFrame;
+    TextureRegion[] textureRegions;
+    float startX, startY, speed;
     private float stateTime;
-    public boolean isAnimated, isLooping;
+    boolean isAnimated, isLooping;
 
-    public GenericActor(TextureRegion[] textureRegions, float startX, float startY) {
+    GenericActor(TextureRegion[] textureRegions, float startX, float startY) {
         this(startX, startY);
         this.textureRegions = textureRegions;
-        animation = new Animation(0.075f, textureRegions);
+        animation = new Animation<TextureRegion>(0.075f, textureRegions);
         rectangle.width = textureRegions[0].getRegionWidth() / 70f;
         rectangle.height = textureRegions[0].getRegionHeight() / 70f;
         isAnimated = true;
     }
 
-    public GenericActor(TextureRegion deadTextureRegion, float startX, float startY) {
+    GenericActor(TextureRegion deadTextureRegion, float startX, float startY) {
         this(startX, startY);
         this.deadTextureRegion = deadTextureRegion;
         rectangle.width = deadTextureRegion.getRegionWidth() / 70f;
@@ -37,13 +38,13 @@ public class GenericActor extends Actor {
         isAnimated = false;
     }
 
-    public GenericActor(float startX, float startY, float speed, boolean isLooping) {
+    GenericActor(float startX, float startY, float speed, boolean isLooping) {
         this(startX, startY);
         this.speed = speed;
         this.isLooping = isLooping;
     }
 
-    public GenericActor(float startX, float startY) {
+    GenericActor(float startX, float startY) {
         this.startX = startX;
         this.startY = startY;
 
@@ -52,7 +53,7 @@ public class GenericActor extends Actor {
         rectangle.y = startY;
     }
 
-    public void flipTexture(boolean horizontal, boolean vertical) {
+    void flipTexture(boolean horizontal, boolean vertical) {
         if (isAnimated) {
             for (TextureRegion tr : textureRegions) {
                 tr.flip(horizontal, vertical);

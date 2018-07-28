@@ -1,6 +1,5 @@
-package com.heinousgames.game.tenbands.actors;
+package net.heinousgames.game.tenbands.actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -9,10 +8,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class VerticalPhoneActor extends VerticalMovingActor {
 
-    public VerticalPhoneActor(float startX, float startY, float endY, float speed, boolean isLooping) {
+    public VerticalPhoneActor(float startX, float startY, float endY, float speed, boolean isLooping, Texture texture) {
         super(startX, startY, endY, speed, isLooping);
-        textureRegion = new TextureRegion(new Texture(
-                Gdx.files.internal("gfx/phone.png")), 0, 0, 233, 512);
+        textureRegion = new TextureRegion(texture, 0, 0, 233, 512);
         rectangle.width = 0.5f;
         rectangle.height = 1;
         isAnimated = false;

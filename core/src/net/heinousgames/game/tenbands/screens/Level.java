@@ -1,4 +1,4 @@
-package com.heinousgames.game.tenbands.screens;
+package net.heinousgames.game.tenbands.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,28 +11,30 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.heinousgames.game.tenbands.actors.GenericActor;
-import com.heinousgames.game.tenbands.actors.SleepingActor;
+
+import net.heinousgames.game.tenbands.MainClass;
+import net.heinousgames.game.tenbands.actors.GenericActor;
+import net.heinousgames.game.tenbands.actors.SleepingActor;
 
 /**
  * Created by Steve on 4/16/2016
  */
-public class Level implements Screen {
+class Level implements Screen {
 
-    public int maxBands;
-    public Array<GenericActor> dangerousActors;
-    public Array<SleepingActor> sleepingActors;
+    int maxBands;
+    Array<GenericActor> dangerousActors;
+    Array<SleepingActor> sleepingActors;
     public Stage stage;
 
-    private Game game;
+    private MainClass game;
     private Texture tile;
     private TextureRegion currentFrame;
     private OrthographicCamera levelCamera;
-    private boolean lastFacingLeft, hasLost;
+    private boolean lastFacingLeft, hasLost, isAccelerometerAvailable;
     private float prevX, stateTime, soundByteTime;
     private Long startTime, finishTime;
 
-    public Level(final Game game) {
+    Level(final MainClass game) {
         this.game = game;
         game.batch.enableBlending();
 
@@ -65,11 +67,8 @@ public class Level implements Screen {
 
         game.drakeRect.x = 0;
         game.drakeRect.y = 0;
-    }
 
-    @Override
-    public void show() {
-
+        isAccelerometerAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
     }
 
     @Override
@@ -78,20 +77,52 @@ public class Level implements Screen {
 
         levelCamera.update();
 
-        if ((int)Gdx.input.getAccelerometerX() == 0 && (int)Gdx.input.getAccelerometerY() == 0) {
-            currentFrame = game.walkFrames[1];
+        if (isAccelerometerAvailable) {
+            if ((int) Gdx.input.getAccelerometerX() == 0 && (int) Gdx.input.getAccelerometerY() == 0) {
+                currentFrame = game.walkFrames[1];
+            } else {
+                stateTime += Gdx.graphics.getDeltaTime();
+                currentFrame = game.walkAnimation.getKeyFrame(stateTime, true);
+            }
         } else {
-            stateTime += Gdx.graphics.getDeltaTime();
-            currentFrame = game.walkAnimation.getKeyFrame(stateTime, true);
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)
+                    || Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.UP)
+                    || Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.A)
+                    || Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.D)) {
+                stateTime += Gdx.graphics.getDeltaTime();
+                currentFrame = game.walkAnimation.getKeyFrame(stateTime, true);
+            } else {
+                currentFrame = game.walkFrames[1];
+            }
         }
 
         game.batch.setProjectionMatrix(levelCamera.combined);
+//        game.shapeRenderer.setProjectionMatrix(levelCamera.combined);
+
 
         if (!hasLost) {
             finishTime = System.currentTimeMillis() - startTime;
             prevX = game.drakeRect.x;
-            game.drakeRect.x += (int) Gdx.input.getAccelerometerY() * 2.5f * delta;
-            game.drakeRect.y -= (int) Gdx.input.getAccelerometerX() * 2.5f * delta;
+            if (isAccelerometerAvailable) {
+                game.drakeRect.x += (int) Gdx.input.getAccelerometerY() * 2.5f * delta;
+                game.drakeRect.y -= (int) Gdx.input.getAccelerometerX() * 2.5f * delta;
+            } else {
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+                    game.drakeRect.x -= (int) 8f * Gdx.graphics.getDeltaTime();
+                }
+
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
+                    game.drakeRect.x += (int) 8f * Gdx.graphics.getDeltaTime();
+                }
+
+                if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
+                    game.drakeRect.y += (int) 8f * Gdx.graphics.getDeltaTime();
+                }
+
+                if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
+                    game.drakeRect.y -= (int) 8f * Gdx.graphics.getDeltaTime();
+                }
+            }
             game.drakeFeetRect.x = game.drakeRect.x;
             game.drakeFeetRect.y = game.drakeRect.y + 0.125f;
 
@@ -145,6 +176,16 @@ public class Level implements Screen {
 
         game.batch.end();
 
+//        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+//        game.shapeRenderer.setColor(1, 0, 0, 1);
+//        game.shapeRenderer.rect(game.drakeFeetRect.x, game.drakeFeetRect.y, game.drakeFeetRect.width, game.drakeFeetRect.height);
+//        game.shapeRenderer.end();
+//
+//        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+//        game.shapeRenderer.setColor(0, 1, 0, 1);
+//        game.shapeRenderer.rect(game.drakeRect.x, game.drakeRect.y, game.drakeRect.width, game.drakeRect.height);
+//        game.shapeRenderer.end();
+
         if (game.drakeRect.overlaps(game.bandRect)) {
             game.generateBandLocation(maxBands);
             game.score += 1;
@@ -164,7 +205,11 @@ public class Level implements Screen {
                     }
                 }
                 game.songEdited.stop();
-                game.setScreen(new LevelRecapScreen(game, "Score", maxBands, game.score, finishTime, true));
+//                if (game.isNotWeb) {
+//                    game.setScreen(new LevelRecapScreen(game, "Score", maxBands, game.score, finishTime, true));
+//                } else {
+                    game.setScreen(new LevelRecapScreen(game, game.scoreTR, maxBands, game.score, finishTime, true));
+//                }
                 dispose();
             }
             if (maxBands == 10) {
@@ -199,7 +244,9 @@ public class Level implements Screen {
                 }
             }
 
-            if (Gdx.input.isKeyJustPressed(Input.Keys.BACK)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.BACK) ||
+                    Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) ||
+                    Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) {
                 if (game.prefs.getBoolean("musicOn", true)) {
                     if (game.prefs.getBoolean("uneditedOn", false)) {
                         game.song.stop();
@@ -207,37 +254,15 @@ public class Level implements Screen {
                         game.songEdited.stop();
                     }
                 }
-                game.setScreen(new LevelSelectScreen(game, "Select Level"));
+//                if (game.isNotWeb) {
+//                    game.setScreen(new LevelSelectScreen(game, "Select Level"));
+//                } else {
+                    game.setScreen(new LevelSelectScreen(game, game.levelSelect));
+//                }
                 dispose();
             }
-
         }
 
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-        tile.dispose();
     }
 
     private void endGame(final boolean diedByPhone) {
@@ -290,15 +315,54 @@ public class Level implements Screen {
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
-                            game.setScreen(new LevelRecapScreen(game, "Score", maxBands, game.score, finishTime, false));
+//                            if (game.isNotWeb) {
+//                                game.setScreen(new LevelRecapScreen(game, "Score", maxBands, game.score, finishTime, false));
+//                            } else {
+                                game.setScreen(new LevelRecapScreen(game, game.scoreTR, maxBands, game.score, finishTime, false));
+//                            }
                             dispose();
                         }
                     }, soundByteTime);
                 }
             }, 1.5f);
         } else {
-            game.setScreen(new LevelRecapScreen(game, "Score", maxBands, game.score, finishTime, false));
+//            if (game.isNotWeb) {
+//                game.setScreen(new LevelRecapScreen(game, "Score", maxBands, game.score, finishTime, false));
+//            } else {
+                game.setScreen(new LevelRecapScreen(game, game.scoreTR, maxBands, game.score, finishTime, false));
+//            }
             dispose();
         }
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        tile.dispose();
+        stage.dispose();
     }
 }
