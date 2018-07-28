@@ -10,8 +10,8 @@ This is an open source video game I made based on the Drake song "10 Bands." I m
 * LibGDX was only compatible with Android Studio 2.2 at the time I made this game. You will be able to get it to run on newer versions of Android Studio by modifying the target and compile sdk version to 22, but it might have undesired effects.
 
 ### Where Can I Play It?
-*https://www.heinousgames.net/p/10bands.html
-*https://heinousgames.itch.io/10bands
+* https://www.heinousgames.net/p/10bands.html
+* https://heinousgames.itch.io/10bands
 
 ### Where Can I Download the Android Verison?
-*https://heinousgames.itch.io/10bands
+* https://heinousgames.itch.io/10bands
