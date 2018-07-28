@@ -1,4 +1,4 @@
-package com.heinousgames.game.tenbands;
+package net.heinousgames.game.tenbands;
 
 /**
  * Created by Steve on 4/24/2016

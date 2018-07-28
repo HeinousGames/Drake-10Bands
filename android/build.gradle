@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "com.heinousgames.game.tenbands"
+        applicationId "net.heinousgames.game.tenbands"
         minSdkVersion 8
         targetSdkVersion 20
     }
@@ -68,7 +68,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.heinousgames.game.tenbands/com.heinousgames.game.tenbands.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'net.heinousgames.game.tenbands/AndroidLauncher'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.
